@@ -54,7 +54,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.products.form', ['entity' => $product]);
     }
 
     /**
@@ -77,7 +77,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->except('_token'));
+
+        return redirect()->route('products.index')->withStatus('Updated');
     }
 
     /**
@@ -88,6 +90,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('products.index')->withStatus('Deleted', 204);
     }
 }
