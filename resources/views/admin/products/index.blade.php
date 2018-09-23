@@ -33,8 +33,10 @@
             @endforeach
             </tbody>
         </table>
-
-        {{ Html::link(route('products.create'), 'New Product', ['class' => 'btn btn-info']) }}
+        <div class="text-right">
+            {{ Html::link(route('products.create'), 'New Product', ['class' => 'btn btn-info btn-sm']) }}
+            {!! $entities->links() !!}
+        </div>
     </div>
 
 @endsection

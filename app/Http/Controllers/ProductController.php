@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $entities = Product::all();
+        $entities = Product::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.products.index', compact('entities'));
     }
@@ -29,7 +29,7 @@ class ProductController extends Controller
     {
         $entity = new Product();
 
-        return view('admin.products.form', compact('entity'));
+        return view('admin.products.create', compact('entity'));
     }
 
     /**
@@ -40,8 +40,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+dump($request->all());
         $entity = Product::create($request->except('_token'));
+        $entity->active = $request->has('active');
+dump($entity);
         $entity->save();
+
+        //$entity->vouchers()->sync($request->get('vouchers'));
 
         return redirect()->route('products.index')->withStatus('Created');
     }
@@ -54,7 +59,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.products.form', ['entity' => $product]);
+        $product->load('vouchers.discount');
+
+        return view('admin.products.edit', ['entity' => $product]);
     }
 
     /**
@@ -65,7 +72,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.form', ['entity' => $product]);
+        return view('admin.products.edit', ['entity' => $product]);
     }
 
     /**
@@ -77,7 +84,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $product->active = $request->has('active');
         $product->update($request->except('_token'));
+         //$product->vouchers()->sync($request->get('vouchers'));
 
         return redirect()->route('products.index')->withStatus('Updated');
     }
