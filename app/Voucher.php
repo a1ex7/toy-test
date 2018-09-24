@@ -11,12 +11,12 @@ class Voucher extends Model
 
     public function discount()
     {
-        $this->hasOne(Discount::class);
+        return $this->belongsTo(Discount::class);
     }
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     /**

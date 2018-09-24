@@ -13,12 +13,12 @@ class CreateProductsVouchersTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_vouchers', function (Blueprint $table) {
+        Schema::create('product_voucher', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('products_id');
-            $table->unsignedInteger('vouchers_id');
-            $table->foreign('products_id')->references('id')->on('products');
-            $table->foreign('vouchers_id')->references('id')->on('vouchers');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('voucher_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('voucher_id')->references('id')->on('vouchers');
         });
 
     }
@@ -30,7 +30,7 @@ class CreateProductsVouchersTable extends Migration
      */
     public function down()
     {
-        Schema::table('products_vouchers', function (Blueprint $table) {
+        Schema::table('product_voucher', function (Blueprint $table) {
             Schema::dropIfExists('products_vouchers');
         });
     }

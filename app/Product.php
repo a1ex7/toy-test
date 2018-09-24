@@ -11,7 +11,7 @@ class Product extends Model
 
     public function vouchers()
     {
-        return $this->hasMany(Voucher::class);
+        return $this->belongsToMany(Voucher::class);
     }
 
     /**

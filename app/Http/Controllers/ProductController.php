@@ -15,8 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $entities = Product::orderBy('id', 'desc')->paginate(10);
-
+        $entities = Product::orderBy('id', 'desc')->with('vouchers.discount')->paginate(10);
         return view('admin.products.index', compact('entities'));
     }
 
@@ -40,10 +39,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-dump($request->all());
         $entity = Product::create($request->except('_token'));
         $entity->active = $request->has('active');
-dump($entity);
         $entity->save();
 
         //$entity->vouchers()->sync($request->get('vouchers'));

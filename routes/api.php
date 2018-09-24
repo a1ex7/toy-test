@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
+use Illuminate\Routing\Router;
+/* @var Router $router */
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+$router->apiResources([
+    'products'  => 'Api\ProductController',
+    'discounts' => 'Api\DiscountController',
+    'vouchers'  => 'Api\VoucherController',
+]);

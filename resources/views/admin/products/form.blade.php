@@ -11,9 +11,14 @@
     </div>
 </div>
 <div class="form-group">
-    {{ Form::label('active', 'Active:', ['class' => 'col-md-2 control-label']) }}
+    @foreach( $entity->vouchers as $voucher)
+        <p class="badge badge-info">Voucher: {{$voucher->id}}, Discount: {{$voucher->discount->value}}%</p>
+    @endforeach
+</div>
+<div class="form-group">
     <div class="col-md-8">
-        {{ Form::checkbox('active', true, old('active')) }}
+        {{ Form::checkbox('active', true, old('active'), ['id' => 'active']) }}
+        {{ Form::label('active', 'Active', ['class' => 'col-md-2 control-label', 'for' => 'active']) }}
     </div>
 </div>
 <div class="form-group">

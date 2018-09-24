@@ -9,6 +9,7 @@
                 <th>ID</th>
                 <th>Product</th>
                 <th>Price</th>
+                <th>%</th>
                 <th>Active</th>
                 <th>Created At</th>
                 <th>Updated At</th>
@@ -21,6 +22,11 @@
                     <td>{{ $entity->id }}</td>
                     <td>{{ Html::link(route('products.edit', ['id' => $entity->id]), $entity->name) }}</td>
                     <td>{{ $entity->price }}</td>
+                    <td>
+                        @foreach( $entity->vouchers as $voucher)
+                            <p class="badge badge-info">{{$voucher->id}} - {{$voucher->discount->value}}%</p>
+                        @endforeach
+                    </td>
                     <td>{{ $entity->active }}</td>
                     <td>{{ $entity->created_at }}</td>
                     <td>{{ $entity->updated_at }}</td>
